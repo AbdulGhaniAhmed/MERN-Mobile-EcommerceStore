@@ -1,7 +1,7 @@
 const express = require('express');
 const env = require('dotenv') 
 const app = express();
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 //dotev is libaray use for .env variable
@@ -24,7 +24,7 @@ mongoose.connect(
 }).then(()=>{
     console.log('mongo db connected')
 })
-app.use(bodyParser());
+app.use(express.json());
 app.use('/api',authRoutes);
 app.use('/api',adminAuthRoutes);
 
