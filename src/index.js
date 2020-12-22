@@ -1,6 +1,7 @@
 const express = require('express');
 const env = require('dotenv') 
 const app = express();
+
 // const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
@@ -14,6 +15,7 @@ env.config();
 //routes
 const authRoutes = require('./routes/auth');
 const adminAuthRoutes = require('./routes/admin/auth');
+const categoryRoutes = require('./routes/category');
 
 mongoose.connect(
     `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@merncluster.siw62.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`, 
@@ -27,6 +29,7 @@ mongoose.connect(
 app.use(express.json());
 app.use('/api',authRoutes);
 app.use('/api',adminAuthRoutes);
+app.use('/api',categoryRoutes);
 
 // app.get('/',(req,res,next)=>{
 //     res.status(200)
