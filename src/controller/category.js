@@ -1,6 +1,7 @@
 const Category = require('../models/category');
 const slugify = require('slugify');
 
+//to show categories + sub categories within categories
 function createCategory(categories,parentId=null){
     const categoryList = [];
     let category;
@@ -20,6 +21,7 @@ function createCategory(categories,parentId=null){
     return categoryList;
 };
 
+//to add/create category
 exports.addCategory = (req,res)=>{
     const categoryObj = {
         name: req.body.name,
@@ -35,6 +37,7 @@ exports.addCategory = (req,res)=>{
     });
 }
 
+//t display category
 exports.getCategory=(req,res)=>{
     Category.find({})
     .exec((error,categories)=>{
