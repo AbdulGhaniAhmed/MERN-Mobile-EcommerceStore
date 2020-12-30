@@ -1,6 +1,7 @@
 const express = require('express');
 const env = require('dotenv') 
 const app = express();
+const cors = require('cors')
 
 // const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -29,7 +30,7 @@ mongoose.connect(
     console.log('mongo db connected')
 })
 
-
+app.use(cors());
 app.use(express.json());
 app.use('/api',authRoutes);
 app.use('/api',adminAuthRoutes);
