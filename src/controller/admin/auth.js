@@ -26,7 +26,7 @@ exports.signup = (req,res)=>{
     });
     _user.save((error,data)=>{
         if(error) {
-            return res.status(404).json({
+            return res.status(400).json({
             message:"Some error occur"
         });
     }
@@ -48,6 +48,7 @@ exports.signin = (req,res)=>{
         if(user){
             if(user.authenticate(req.body.password) && user.role === 'admin'){
                 const token = jwt.sign({_id: user._id,role:user.role},process.env.JWT_SECRET_KEY,{expiresIn: '1h'});
+                res.cookie('token',token,{expiresIn:'1h'});
                 const{
                     _id,
                     firstName,
@@ -56,7 +57,7 @@ exports.signin = (req,res)=>{
                     role,
                     fullName
                 } = user;
-                res.status(200).json({
+                res.status(201).json({
                     token,
                     user:{
                         _id,
@@ -78,3 +79,10 @@ exports.signin = (req,res)=>{
     })
 }
 
+exports.signout = (req,res) =>{
+    res.clearCookie('token');
+    res.status(200).json({
+        message:'signout successfuly'
+    })
+
+}
