@@ -1,0 +1,8 @@
+->nodemon
+->express
+->express-validator
+->body-parser
+->jwt
+->Slugify in schema
+->multer or formidable use to upload file/picture
+->shortid

@@ -1,8 +1,15 @@
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
 
 //Signup logic plus authentication
 exports.signup = (req,res)=>{
+
+    // const errors = validationResult(req);
+    // return res.status(400).json({
+    //     errors: errors.array()
+    // })
+
     User.findOne({email: req.body.email})
     .exec((error, user)=>{
         if(user) return res.status(400).json({
@@ -76,10 +83,4 @@ exports.signin = (req,res)=>{
         }
     })
 }
-// To handle user sessions through jwt-token
-exports.requireSignin = (req,res,next) =>{
-    const token = req.headers.authorization.split(" ")[1];
-    const user =  jwt.verify(token,process.env.JWT_SECRET_KEY);
-    req.user = user;
-    next();
-}
+

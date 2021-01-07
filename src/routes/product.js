@@ -1,11 +1,11 @@
 const express = require('express');
 const { adminCheck, requireSignin } = require('../common-middleware/auth');
-const { addCategory, getCategory } = require('../controller/category');
-const router = express.Router();
-<<<<<<< HEAD
+const { createProduct } = require('../controller/product');
 const shortid = require('shortid');
 const multer = require('multer');
 const path = require('path')
+
+const router = express.Router();
 
 // To upload image and save in folder
 const storage = multer.diskStorage({
@@ -18,14 +18,8 @@ const storage = multer.diskStorage({
   })
    
  const upload = multer({ storage })
+                                                        //use .single to upload only one file
+router.post('/product/create',requireSignin,adminCheck,upload.array('productPicture'),createProduct)
 
-
-router.post('/category/create',requireSignin,adminCheck,upload.single('categoryImage'),addCategory);
-=======
-
-
-router.post('/category/create',requireSignin,adminCheck,addCategory);
->>>>>>> c530004806a729eb86b02ee72445654fab752745
-router.get('/category/display',getCategory);
 
 module.exports = router;
