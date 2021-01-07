@@ -17,7 +17,6 @@ exports.adminCheck = (req,res,next)=>{
         return res.status(400).json({msg: "Access denied"})
     }
     next();
-<<<<<<< HEAD
 }
 
 exports.userCheck = (req,res,next)=>{
@@ -25,6 +24,4 @@ exports.userCheck = (req,res,next)=>{
         return res.status(400).json({msg: "Access denied"})
     }
     next();
-=======
->>>>>>> c530004806a729eb86b02ee72445654fab752745
 }

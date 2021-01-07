@@ -44,11 +44,7 @@ const productSchema = new mongoose.Schema({
     },
     category:{
         // To check category the product we are using 'linking' in sql this is also known as 'foreign key'
-<<<<<<< HEAD
         type: mongoose.Schema.Types.ObjectId,
-=======
-        type: mongoose.Schema.Types.ObjectId, ref:'Category',
->>>>>>> c530004806a729eb86b02ee72445654fab752745
         required:true
     }
 },{timestamps:true});
