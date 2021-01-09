@@ -1,26 +1,29 @@
 const User = require('../../models/user');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt')
 
 //Signup logic plus authentication
 exports.signup = (req,res)=>{
     User.findOne({email: req.body.email})
-    .exec((error, user)=>{
+    .exec(async (error, user)=>{
         if(user) return res.status(400).json({
             message: 'Admin already exist'
-        })
-    });
+        });
+
 
     const{
         firstName,
         lastName,
-        password,
-        email
+        email,
+        password
     } = req.body;
+    const hash_password = await bcrypt.hash(password,10)
+
     const _user = new User({
         firstName,
         lastName,
         username:Math.random().toString(),
-        password,
+        hash_password,
         email,
         role: 'admin'
     });
@@ -35,8 +38,9 @@ exports.signup = (req,res)=>{
             message:"Admin Created succesfuly"
         });
     }
-    });
-}
+});
+});
+};
 
 //SignIn logic plus authentication
 exports.signin = (req,res)=>{
