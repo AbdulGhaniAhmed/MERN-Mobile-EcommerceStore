@@ -25,6 +25,7 @@ const adminAuthRoutes = require('./routes/admin/auth');
 const categoryRoutes = require('./routes/category');
 const productRoutes  = require('./routes/product');
 const cartRoutes = require('./routes/cart')
+const initialDataRoutes = require('./routes/admin/initialData')
 
 //To connect our server with mongodb 
 mongoose.connect(
@@ -36,10 +37,6 @@ mongoose.connect(
 }).then(()=>{
     console.log('mongo db connected')
 })
-
-app.use(bodyParser());
-app.use('/api',authRoutes);
-app.use('/api',adminAuthRoutes);
 
 // app.get('/',(req,res,next)=>{
 //     res.status(200)
@@ -64,14 +61,7 @@ app.use('/api',adminAuthRoutes);
 app.use('/api',categoryRoutes);
 app.use('/api',productRoutes);
 app.use('/api',cartRoutes);
-
-
-app.use(cors());
-app.use(express.json());
-app.use('/api',authRoutes);
-app.use('/api',adminAuthRoutes);
-app.use('/api',categoryRoutes);
-app.use('/api',productRoutes);
+app.use('/api',initialDataRoutes);
 
 
 //install nodemon for automatic restarting of server otherwise we have to always restart the server after some changes in file
