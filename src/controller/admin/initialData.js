@@ -1,16 +1,16 @@
 const Category = require('../../models/category');
-const Product = require('../../models/product')
+const Products = require('../../models/product')
 
 //to show categories + sub categories within categories
-function createCategory(categories,parentId=null){
+function createCategory(categories, parentId = null) {
     const categoryList = [];
     let category;
-    if(parentId==null){
-        category=categories.filter(cat=>cat.parentId == undefined);
-    }else{
-        category=categories.filter(cat=>cat.parentId == parentId);
+    if (parentId == null) {
+        category = categories.filter(cat => cat.parentId == undefined);
+    } else {
+        category = categories.filter(cat => cat.parentId == parentId);
     }
-    for(let cat of category){
+    for (let cat of category) {
         categoryList.push({
             _id: cat._id,
             name: cat.name,
@@ -24,9 +24,10 @@ function createCategory(categories,parentId=null){
 
 exports.initialData = async (req, res) => {
     const categories = await Category.find({}).exec();
-    const products = await Product.find({})
-                                  .select('_id name price quantity description slug productPic category')
-                                  .exec();
+    const products = await Products.find({ })
+        .select('_id name price quantity description slug productPic category')
+        .populate({ path: "category", select: "_id name" })
+        .exec();
 
     res.status(200).json({
         categories: createCategory(categories),
