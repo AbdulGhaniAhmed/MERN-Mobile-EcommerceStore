@@ -1,6 +1,6 @@
 const express = require('express');
 const { adminCheck, requireSignin } = require('../common-middleware/auth');
-const { createProduct } = require('../controller/product');
+const { createProduct, getProductBySlug } = require('../controller/product');
 const shortid = require('shortid');
 const multer = require('multer');
 const path = require('path')
@@ -20,6 +20,6 @@ const storage = multer.diskStorage({
  const upload = multer({ storage })
                                                         //use .single to upload only one file
 router.post('/product/create',requireSignin,adminCheck,upload.array('productPicture'),createProduct)
-
+router.get('/products/:slug',getProductBySlug)
 
 module.exports = router;
